@@ -1,44 +1,71 @@
 # Requirements Document
 
 ## Program Overview
+The program is a console-based poker-style card game. A human player competes against computer-controlled bots. Each player receives cards and places bets using coins. The program evaluates hands and determines a winner each round.
 
-The Custom 3‑Card Draw Card Game is a simple Java program that simulates
-a card game. The player receives three cards and the system adds two
-additional cards to form a five‑card hand. The program evaluates the
-hand and tells the player what type of hand they received.
+Player information such as coin balance is stored in a file called `data.txt` so progress is saved between sessions.
 
 ## Functional Requirements
 
-### User Input
+### Player Data System
+- Player enters their name when the game starts.
+- The program loads saved data from `data.txt`.
+- If the player does not exist in the file, a new player profile is created.
+- The file stores:
+  - Player name
+  - Coin balance
+- Player data is saved automatically after each round.
 
--   Player enters their name
--   Player chooses whether to start a new round or exit the game
+Example data format:
+PlayerName,1500
 
-### Game Behavior
+### Money System
+- The player has coins used for betting.
+- Coins increase when the player wins rounds.
+- Coins decrease when the player loses bets.
 
--   Program creates a standard 52‑card deck
--   Deck is shuffled before dealing
--   Player receives three cards
--   Program deals two additional cards
--   The five‑card hand is evaluated
+### Bot Players
+- Bots act as computer opponents.
+- The player chooses how many bots to play against.
+- Bots always start with **2000 coins**.
+- Bots automatically place bets.
+- Bots leave the game when their coins reach **0**.
+
+### Deck System
+- A standard 52-card deck is created.
+- The deck is shuffled each round.
+
+### Card Dealing
+- Each participant receives **3 cards**.
+- The system adds **2 additional cards** to complete a 5-card hand.
+
+### Betting Phase
+- Players place bets before the winner is decided.
+- The player chooses how many coins to bet.
+- Bots automatically place bets.
+- All bets are added to a shared pot.
 
 ### Hand Evaluation
+The program determines the best hand.
 
-The program must detect: - Pair - Two Pair - Three of a Kind -
-Straight - Flush - High Card
-
-### Program Output
-
-The program displays: - Player name - The five cards in the final hand -
-The type of hand achieved
+Possible hands include:
+- Pair
+- Two Pair
+- Three of a Kind
+- Straight
+- Flush
+- Full House
+- High Card
 
 ### Game Loop
+- The game runs multiple rounds.
+- Bots are removed when they run out of coins.
+- The game ends when:
+  - The player quits
+  - The player runs out of coins
 
--   The player can choose to play multiple rounds
--   The game continues until the player exits
-
-## Non‑Functional Requirements
-
--   Program must run in the console
--   Program should be easy to understand and use
--   Program must handle invalid input without crashing
+## Non-Functional Requirements
+- Program must run in a console environment.
+- Program must handle invalid input safely.
+- Player data must be saved using file storage.
+- Program should follow object-oriented design principles.
