@@ -1,56 +1,62 @@
 # Project Plan Document
 
 ## Project Title
-
-Custom 3‑Card Draw Card Game
+Custom Poker-Style Card Game with Betting and Bots
 
 ## Project Description
-
-This project is a simple command‑line card game written in Java. The
-player receives three cards and the program deals two additional cards
-to create a five‑card hand. The program then evaluates the hand and
-tells the player what type of hand they received, such as a pair, two
-pair, or three of a kind.
+This project is a Java console card game where a human player competes against several computer bots. Each round players receive cards and place bets using coins. The goal is to form the best five-card hand. Player data such as coins will be saved to a file named `data.txt` so the player’s progress can continue between sessions.
 
 ## Project Goals
-
--   Practice object‑oriented programming in Java
--   Use multiple classes and inheritance
--   Use loops and decision making
--   Work with ArrayLists and arrays
--   Handle user input and output
+- Practice object-oriented programming in Java
+- Use inheritance and polymorphism
+- Implement file reading and writing
+- Use loops, decision making, arrays, and ArrayLists
+- Simulate multiple players using bots
 
 ## Team Roles
 
--   Project Manager
-    -   Organizes tasks and keeps the project on schedule
--   Programmer
-    -   Writes the Java classes and game logic
--   Designer / Architect
-    -   Plans class structure and how objects interact
--   Tester
-    -   Tests the game for bugs and verifies results
--   Technical Writer
-    -   Writes the documentation
+### Project Manager
+- Organizes the project timeline
+- Ensures tasks are completed
 
-If working individually, the student will perform all roles.
+### Programmer
+- Writes the Java classes
+- Implements game logic and betting
+
+### System Designer
+- Designs class relationships
+- Plans program structure
+
+### Tester
+- Tests gameplay
+- Finds bugs and verifies results
+
+### Technical Writer
+- Writes project documentation
+
+If working individually, one student performs all roles.
 
 ## Tools
-
--   Java programming language
--   Online Java compiler or IDE
--   Word processor or Markdown editor
+- Java programming language
+- Java IDE or online compiler
+- Markdown editor or word processor
 
 ## Timeline
 
--   Day 1
-    -   Brainstorm idea and create project plan
--   Day 2--3
-    -   Write requirements document
--   Day 4--5
-    -   Write design document
--   Week 2
-    -   Implement Java program
--   Week 3
-    -   Testing and debugging
-    -   Final submission
+### Day 1–2
+- Brainstorm game idea
+- Write project plan
+
+### Day 3–4
+- Write requirements document
+
+### Day 5–6
+- Create design document
+
+### Week 2
+- Implement Java classes and game logic
+
+### Week 3
+- Test gameplay
+- Fix bugs
+- Submit final project
