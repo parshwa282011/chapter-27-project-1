@@ -4,7 +4,13 @@
 Custom Poker-Style Card Game with Betting and Bots
 
 ## Project Description
-This project is a Java console card game where a human player competes against several computer bots. Each round players receive cards and place bets using coins. The goal is to form the best five-card hand. Player data such as coins will be saved to a file named `data.txt` so the player’s progress can continue between sessions.
+This project is a Java console card game where a player competes against computer bots or other human players. Each round players receive cards and place bets using coins. The goal is to form the best five-card hand.
+
+The game supports:
+- Singleplayer mode against bots
+- Multiplayer mode where players can host or join games using an IP address and port
+
+Player data such as coins will be saved to a file named `data.txt` so progress can continue between sessions.
 
 ## Project Goals
 - Practice object-oriented programming in Java
