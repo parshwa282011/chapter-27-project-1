@@ -1,72 +1,139 @@
 # Design Document
 
-## Program Structure
-
-The program will follow object‑oriented design and use multiple classes
-to represent cards, decks, and player hands.
+## Program Architecture
+The program will follow an object-oriented structure using multiple interacting classes.
 
 ## Classes
 
-### Main Class
+### Main
+Responsibilities:
+- Contains the `main()` method
+- Controls the game loop
+- Loads and saves player data
+- Starts new rounds
 
-Responsibilities - Contains the main() method - Controls the game loop -
-Handles user input - Displays results
+---
 
-### Card Class
+### Person (Superclass)
 
-Properties - rank - suit
+Properties:
+- name
+- coins
+- hand (ArrayList of Card)
 
-Methods - getRank() - getSuit() - toString()
+Methods:
+- addCard()
+- placeBet()
+- getCoins()
+- removeCoins()
 
-Purpose - Represents a single playing card
+Purpose:
+Represents any participant in the game.
 
-### Deck Class
+---
 
-Properties - ArrayList`<Card>`{=html} deck
+### Player (Subclass of Person)
 
-Methods - createDeck() - shuffleDeck() - drawCard()
+Responsibilities:
+- Interacts with the user
+- Handles betting decisions
+- Saves and loads player data
 
-Purpose - Stores and manages the deck of cards
+Methods:
+- loadData()
+- saveData()
+- chooseBet()
 
-### Hand Class (Superclass)
+Data is stored in `data.txt`.
 
-Properties - ArrayList`<Card>`{=html} cards
+---
 
-Methods - addCard() - showHand()
+### Bot (Subclass of Person)
 
-Purpose - Represents a general card hand
+Characteristics:
+- Automated behavior
+- Starts with **2000 coins**
 
-### PlayerHand Class (Subclass)
+Methods:
+- makeBet()
+- chooseAction()
 
-Inherits from Hand
+Behavior:
+- Bots automatically place bets.
+- Bots leave the game when coins reach **0**.
 
-Additional Methods - evaluateHand()
+---
 
-Purpose - Evaluates the player's five‑card hand
+### Card
 
-## Inheritance Relationship
+Properties:
+- rank
+- suit
 
-Hand → superclass\
-PlayerHand → subclass
+Methods:
+- getRank()
+- getSuit()
+- toString()
 
-This allows polymorphism if other types of hands are added later.
+Purpose:
+Represents a single playing card.
+
+---
+
+### Deck
+
+Properties:
+- ArrayList<Card> cards
+
+Methods:
+- createDeck()
+- shuffle()
+- drawCard()
+
+Purpose:
+Manages card storage and dealing.
+
+---
+
+### HandEvaluator
+
+Responsibilities:
+- Analyze card combinations
+- Determine winning hands
+
+Methods:
+- checkPair()
+- checkTwoPair()
+- checkFlush()
+- checkStraight()
+- determineWinner()
+
+---
 
 ## Data Structures
 
--   ArrayList`<Card>`{=html}
-    -   used to store deck and hand
--   Arrays
-    -   used to count card ranks for hand evaluation
+ArrayList<Card>
+- Stores cards in the deck and player hands.
+
+ArrayList<Person>
+- Stores all players and bots in the game.
+
+Arrays
+- Used for counting card ranks during hand evaluation.
+
+---
 
 ## Program Flow
 
-1.  Start program
-2.  Ask for player name
-3.  Shuffle deck
-4.  Deal three cards to player
-5.  Deal two additional cards
-6.  Combine cards into a five‑card hand
-7.  Evaluate hand
-8.  Display results
-9.  Ask if player wants to play again
-10. End program when player exits
+1. Start program
+2. Load player data from `data.txt`
+3. Ask how many bots to play against
+4. Create bot players with 2000 coins
+5. Create and shuffle the deck
+6. Deal cards to all participants
+7. Begin betting phase
+8. Evaluate hands
+9. Determine winner and distribute coins
+10. Remove bots with zero coins
+11. Save player data
+12. Ask player if they want to play another round
