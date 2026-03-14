@@ -63,6 +63,39 @@ Possible hands include:
 - The game ends when:
   - The player quits
   - The player runs out of coins
+ 
+## Multiplayer System
+
+The game supports multiplayer gameplay over a network.
+
+### Game Modes
+Players can choose one of three modes:
+- Singleplayer (play against bots)
+- Host a multiplayer game
+- Join a multiplayer game
+
+### Hosting a Game
+When hosting a game:
+- The host creates a server using a chosen port.
+- Other players connect using the host's IP address and port.
+- The host chooses the starting number of coins for all players.
+- The host manages the game state.
+
+### Joining a Game
+When joining a game:
+- The player enters the server address in the format:
+
+IP:PORT
+
+Example:
+192.168.1.45:8080
+
+The program connects to the host and joins the lobby.
+
+### Multiplayer Data Handling
+- The host stores all player coin balances.
+- Clients receive updates from the host.
+- All betting and results are processed by the host.
 
 ## Non-Functional Requirements
 - Program must run in a console environment.
