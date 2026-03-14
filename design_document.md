@@ -1,72 +1,82 @@
-# Design Document
+## Multiplayer System
 
-## Program Structure
+The game supports multiplayer functionality in addition to singleplayer mode with bots. Players can either host a game or join an existing game using a server address.
 
-The program will follow object‑oriented design and use multiple classes
-to represent cards, decks, and player hands.
+### Multiplayer Options
 
-## Classes
+When the game starts, the player can choose one of the following options:
 
-### Main Class
+- Singleplayer (play against bots)
+- Host Multiplayer Game
+- Join Multiplayer Game
 
-Responsibilities - Contains the main() method - Controls the game loop -
-Handles user input - Displays results
+### Hosting a Game
 
-### Card Class
+If the player chooses to host a game:
 
-Properties - rank - suit
+- The program creates a server using a chosen port.
+- Other players can connect using the host’s IP address and port.
+- The host selects the starting coin amount for all players.
+- This starting coin amount is stored and managed on the host side.
 
-Methods - getRank() - getSuit() - toString()
+Responsibilities of the host:
+- Manage the game state
+- Store player coin data
+- Handle betting and round logic
+- Evaluate hands and determine winners
 
-Purpose - Represents a single playing card
+The host acts as the central authority for the game.
 
-### Deck Class
+### Joining a Game
 
-Properties - ArrayList`<Card>`{=html} deck
+If a player chooses to join a game:
 
-Methods - createDeck() - shuffleDeck() - drawCard()
+- The player enters the server address in the format:
 
-Purpose - Stores and manages the deck of cards
+IP:PORT
 
-### Hand Class (Superclass)
+Example:
+192.168.1.45:8080
 
-Properties - ArrayList`<Card>`{=html} cards
+The program then connects to the host server and joins the game.
 
-Methods - addCard() - showHand()
+### Multiplayer Data Management
 
-Purpose - Represents a general card hand
+- Player coin balances are stored and updated on the host computer.
+- Clients do not directly modify coin values.
+- The host sends updates to all connected players after each round.
 
-### PlayerHand Class (Subclass)
+### Multiplayer Classes
 
-Inherits from Hand
+Additional classes may be used to support networking.
 
-Additional Methods - evaluateHand()
+Server
+- Runs on the host computer
+- Accepts incoming player connections
+- Manages game state
 
-Purpose - Evaluates the player's five‑card hand
+Client
+- Connects to a host server
+- Sends player actions
+- Receives game updates
 
-## Inheritance Relationship
+ConnectionHandler
+- Handles communication between players and the server
 
-Hand → superclass\
-PlayerHand → subclass
+### Multiplayer Program Flow
 
-This allows polymorphism if other types of hands are added later.
-
-## Data Structures
-
--   ArrayList`<Card>`{=html}
-    -   used to store deck and hand
--   Arrays
-    -   used to count card ranks for hand evaluation
-
-## Program Flow
-
-1.  Start program
-2.  Ask for player name
-3.  Shuffle deck
-4.  Deal three cards to player
-5.  Deal two additional cards
-6.  Combine cards into a five‑card hand
-7.  Evaluate hand
-8.  Display results
-9.  Ask if player wants to play again
-10. End program when player exits
+1. Player starts program
+2. Player selects game mode
+3. If hosting:
+   - server starts
+   - host chooses starting coins
+4. If joining:
+   - player enters server IP and port
+   - client connects to host
+5. Players join lobby
+6. Game starts when host begins round
+7. Cards are dealt and betting begins
+8. Host evaluates hands
+9. Results are sent to all players
+10. Coins are updated on host side
+11. Next round begins
