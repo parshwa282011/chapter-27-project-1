@@ -18,6 +18,8 @@ Player data such as coins will be saved to a file named `data.txt` so progress c
 - Implement file reading and writing
 - Use loops, decision making, arrays, and ArrayLists
 - Simulate multiple players using bots
+- Implement a multiplayer networking system
+- Allow players to host or join games using IP:port
 
 ## Team Roles
 
