@@ -1,139 +1,82 @@
-# Design Document
+## Multiplayer System
 
-## Program Architecture
-The program will follow an object-oriented structure using multiple interacting classes.
+The game supports multiplayer functionality in addition to singleplayer mode with bots. Players can either host a game or join an existing game using a server address.
 
-## Classes
+### Multiplayer Options
 
-### Main
-Responsibilities:
-- Contains the `main()` method
-- Controls the game loop
-- Loads and saves player data
-- Starts new rounds
+When the game starts, the player can choose one of the following options:
 
----
+- Singleplayer (play against bots)
+- Host Multiplayer Game
+- Join Multiplayer Game
 
-### Person (Superclass)
+### Hosting a Game
 
-Properties:
-- name
-- coins
-- hand (ArrayList of Card)
+If the player chooses to host a game:
 
-Methods:
-- addCard()
-- placeBet()
-- getCoins()
-- removeCoins()
+- The program creates a server using a chosen port.
+- Other players can connect using the host’s IP address and port.
+- The host selects the starting coin amount for all players.
+- This starting coin amount is stored and managed on the host side.
 
-Purpose:
-Represents any participant in the game.
+Responsibilities of the host:
+- Manage the game state
+- Store player coin data
+- Handle betting and round logic
+- Evaluate hands and determine winners
 
----
+The host acts as the central authority for the game.
 
-### Player (Subclass of Person)
+### Joining a Game
 
-Responsibilities:
-- Interacts with the user
-- Handles betting decisions
-- Saves and loads player data
+If a player chooses to join a game:
 
-Methods:
-- loadData()
-- saveData()
-- chooseBet()
+- The player enters the server address in the format:
 
-Data is stored in `data.txt`.
+IP:PORT
 
----
+Example:
+192.168.1.45:8080
 
-### Bot (Subclass of Person)
+The program then connects to the host server and joins the game.
 
-Characteristics:
-- Automated behavior
-- Starts with **2000 coins**
+### Multiplayer Data Management
 
-Methods:
-- makeBet()
-- chooseAction()
+- Player coin balances are stored and updated on the host computer.
+- Clients do not directly modify coin values.
+- The host sends updates to all connected players after each round.
 
-Behavior:
-- Bots automatically place bets.
-- Bots leave the game when coins reach **0**.
+### Multiplayer Classes
 
----
+Additional classes may be used to support networking.
 
-### Card
+Server
+- Runs on the host computer
+- Accepts incoming player connections
+- Manages game state
 
-Properties:
-- rank
-- suit
+Client
+- Connects to a host server
+- Sends player actions
+- Receives game updates
 
-Methods:
-- getRank()
-- getSuit()
-- toString()
+ConnectionHandler
+- Handles communication between players and the server
 
-Purpose:
-Represents a single playing card.
+### Multiplayer Program Flow
 
----
-
-### Deck
-
-Properties:
-- ArrayList<Card> cards
-
-Methods:
-- createDeck()
-- shuffle()
-- drawCard()
-
-Purpose:
-Manages card storage and dealing.
-
----
-
-### HandEvaluator
-
-Responsibilities:
-- Analyze card combinations
-- Determine winning hands
-
-Methods:
-- checkPair()
-- checkTwoPair()
-- checkFlush()
-- checkStraight()
-- determineWinner()
-
----
-
-## Data Structures
-
-ArrayList<Card>
-- Stores cards in the deck and player hands.
-
-ArrayList<Person>
-- Stores all players and bots in the game.
-
-Arrays
-- Used for counting card ranks during hand evaluation.
-
----
-
-## Program Flow
-
-1. Start program
-2. Load player data from `data.txt`
-3. Ask how many bots to play against
-4. Create bot players with 2000 coins
-5. Create and shuffle the deck
-6. Deal cards to all participants
-7. Begin betting phase
-8. Evaluate hands
-9. Determine winner and distribute coins
-10. Remove bots with zero coins
-11. Save player data
-12. Ask player if they want to play another round
+1. Player starts program
+2. Player selects game mode
+3. If hosting:
+   - server starts
+   - host chooses starting coins
+4. If joining:
+   - player enters server IP and port
+   - client connects to host
+5. Players join lobby
+6. Game starts when host begins round
+7. Cards are dealt and betting begins
+8. Host evaluates hands
+9. Results are sent to all players
+10. Coins are updated on host side
+11. Next round begins
