@@ -1,0 +1,9 @@
+# Build outputs
+out/
+target/
+*.class
+*.jar
+
+# OS/editor noise
+.DS_Store
+
